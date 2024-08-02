@@ -33,9 +33,9 @@
    
 
   /*----- state variables -----*/
-  let categoryChoice = QUESTION_BANK[`${key}`]
-  let playerQuestions = QUESTION_BANK[`${key}`].questions
-  let correctAnswer = QUESTION_BANK[`${key}`].answers
+  let questionChoice 
+  let playerQuestions 
+  let correctAnswer
   let score
 
   let playButton
@@ -47,21 +47,46 @@
 
 
   /*----- event listeners -----*/
+document.querySelector('button').addEventListener('click', renderQuestionChoice)
 
+console.log(event)
 
   /*----- functions -----*/
 init()
 function init() {
   playerQuestions = null
-  categoryChoice = null
+  questionChoice = null
   score = null
+  // render()
 
 
 }
 
+// let categoryChoice = QUESTION_BANK[`${key}`]
+// let playerQuestions = QUESTION_BANK[`${key}`].questions
+// let correctAnswer = QUESTION_BANK[`${key}`].answers
+console.log(QUESTION_BANK.history.questions.length)
+
+function correctAnswer(){
+  if(playerChoice )
+
+
+}
+
+function renderQuestionChoice(event){
+  let idx = Math.floor(Math.random() * QUESTION_BANK.history.questions.length)
+  let questionChoice = QUESTION_BANK.history.questions[idx]
+  console.log(questionChoice)
+  console.log(event)
+  return questionChoice
+  correctAnswer()
+
+};
+
+
 
 // render(
-//   renderCategoriesChoice()
+//   renderQuestionChoice()
 //   // something to display play button? or all categories.
 // )
 

@@ -1,4 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&family=Khand:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oxygen:wght@300;400;700&family=Poiret+One&display=swap');
+
 body{
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20rem;
+    font-family: "Oxygen", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    color: rgb(100,100,100);
 }

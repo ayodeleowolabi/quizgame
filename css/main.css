@@ -11,3 +11,20 @@ body{
     font-style: normal;
     color: rgb(100,100,100);
 }
+
+
+#questions{
+    display: flex;
+    padding: 20px
+}
+
+#answers{
+    display: none;
+    flex-direction: column;
+}
+
+#message{
+    margin: 5rem;
+    font-size: medium;
+
+}

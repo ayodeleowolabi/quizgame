@@ -28,7 +28,7 @@
 
  }
  
-const QUESTION_BANK = [
+let QUESTION_BANK = [
   {
     category: 'History',
     text: 'Who was president in 1996?',
@@ -150,63 +150,75 @@ const QUESTION_BANK = [
     playerIdx: null
   },
   {
-    category: 'Science',
-    text: 'Who was the first African American woman to receive a Ph.D. in chemistry in the United States?',
+    category: 'Math',
+    text: 'y = 3x + 5',
     answers: [
-      'Mae Jemison',
-      'Marie Maynard Daly',
-      'Dorothy Vaughan',
-      'Katherine Johnson'
+      '1',
+      '3',
+      '5',
+      '8'
     ],
     correctIdx: 1,
     playerIdx: null
   },
   {
-    category: 'Science',
-    text: 'Who was the first African American woman to receive a Ph.D. in chemistry in the United States?',
+    category: 'Math',
+    text: 'What is the solution for this equation: 2x + 4 = 12',
     answers: [
-      'Mae Jemison',
-      'Marie Maynard Daly',
-      'Dorothy Vaughan',
-      'Katherine Johnson'
+      '2',
+      '3',
+      '4',
+      '5'
+    ],
+    correctIdx: 2,
+    playerIdx: null
+  },
+  {
+    category: 'Math',
+    text: 'What is 25/5',
+    answers: [
+      '1',
+      '3',
+      '5',
+      '8'
+    ],
+    correctIdx: 2,
+    playerIdx: null
+  },
+  {
+    category: 'Math',
+    text: 'What is 7 * 9',
+    answers: [
+      '62',
+      '65',
+      '63',
+      '72'
+    ],
+    correctIdx: 2,
+    playerIdx: null
+  },
+  {
+    category: 'Math',
+    text: 'What is 4 + 24',
+    answers: [
+      '30',
+      '28',
+      '32',
+      '29'
     ],
     correctIdx: 1,
     playerIdx: null
   },
   {
-    category: 'Science',
-    text: 'Who was the first African American woman to receive a Ph.D. in chemistry in the United States?',
+    category: 'Math',
+    text: 'What is 5 + 234',
     answers: [
-      'Mae Jemison',
-      'Marie Maynard Daly',
-      'Dorothy Vaughan',
-      'Katherine Johnson'
+      '230',
+      '248',
+      '239',
+      '229'
     ],
-    correctIdx: 1,
-    playerIdx: null
-  },
-  {
-    category: 'Science',
-    text: 'Who was the first African American woman to receive a Ph.D. in chemistry in the United States?',
-    answers: [
-      'Mae Jemison',
-      'Marie Maynard Daly',
-      'Dorothy Vaughan',
-      'Katherine Johnson'
-    ],
-    correctIdx: 1,
-    playerIdx: null
-  },
-  {
-    category: 'Science',
-    text: 'Who was the first African American woman to receive a Ph.D. in chemistry in the United States?',
-    answers: [
-      'Mae Jemison',
-      'Marie Maynard Daly',
-      'Dorothy Vaughan',
-      'Katherine Johnson'
-    ],
-    correctIdx: 1,
+    correctIdx: 2,
     playerIdx: null
   },
 
@@ -218,14 +230,15 @@ const QUESTION_BANK = [
    
 
   /*----- state variables -----*/
-  
-  let questionChoice 
+  let allQuestions
+  let questionChoices 
   let chosenQuestion 
   let correctAnswer
   let score
   let playerAnswer
   let homeMessage = "how much do you know about the world around you?"
   let homeIntro = "do you know stuff?"
+  let category
  
 
 
@@ -234,15 +247,14 @@ const QUESTION_BANK = [
   let answerContainer = document.getElementById('answers')
   let categoryButtons = document.getElementById('questionscategories')
   let messageDisplay = document.getElementById('message')
-  const allQuestions = QUESTION_BANK.filter((question) => 
-    question.category === category)
+  
 
-  console.log(allQuestions)
+ 
 
 
   /*----- event listeners -----*/
 // document.getElementById('category').addEventListener('click', renderChooseCategory)
-categoryButtons.addEventListener('click', renderChooseQuestion)
+categoryButtons.addEventListener('click', handleCategoryChoice)
 document.getElementById('answers').addEventListener('click', (event) => {
   renderCorrectAnswer(event)
   renderAnswers(event)
@@ -257,32 +269,21 @@ function init() {
   questionPicked = null
   score = 0
 
+render()
 
 }
 
 
-// when the player chooses a category, copy that categories questions from the questions bank to the playerQuestions array. 
-// 
-// let categoryChoice = QUESTION_BANK[`${key}`]
-// let playerQuestions = QUESTION_BANK[`${key}`].questions
-// let correctAnswer = QUESTION_BANK[`${key}`].answers
-// console.log(QUESTION_BANK.history.questions.length)
-
-// function correctAnswer(){
-//   if(playerChoice )
-
-// QUESTIONS:
-// How do i return my screen back to the "home page for next question selection?"
-// why when i tried to initialize my page with an empty 'answers' id, does in not show up again?
-//
-// }
-// function for a home screen
 
 
-function renderScore() {
-  
 
 
+function endGame() {
+  allQuestions.length = 0
+  message =  `Congratulations! You got ${score} points!`
+
+
+  return
 }
 
 function renderCorrectAnswer(event) {
@@ -351,16 +352,39 @@ const answerButtonsArray = answerContainer.children
 
 
 }
+
+
+
+
+
+
 function handleCategoryChoice(event) {
+  category = event.target.id
+  renderChooseCategory()
+  let idx = Math.floor(Math.random() * allQuestions.length)
+  
+  renderChooseQuestion()
+  
+  // if (questionChoices === QUESTION_BANK[idx])
+ 
+  console.log(category)
+  return
+ 
 
   
 }
 
+
+
 function renderChooseCategory() {
-  console.log(QUESTION_BANK.category)
-  const allQuestions = QUESTION_BANK.filter((question) => 
+  console.log(category)
+  allQuestions = QUESTION_BANK.filter((question) => 
     question.category === category)
-  console.log(question.category)
+  console.log(allQuestions)
+  if (allQuestions.length === undefined){
+    message = 'You have finished all the questions in this category'
+  } else 
+
   return
 
     // let idx = Math.floor(Math.random() * QUESTION_BANK.length)
@@ -395,11 +419,21 @@ function renderChooseCategory() {
 
 function renderChooseQuestion() {
   
-  let idx = Math.floor(Math.random() * QUESTION_BANK.length)
-  question.innerText = QUESTION_BANK[idx].text
-  chosenQuestion = QUESTION_BANK[idx]
+  let idx = Math.floor(Math.random() * allQuestions.length)
+  question.innerText = allQuestions[idx].text
+  chosenQuestion = allQuestions[idx]
   console.log(chosenQuestion)
+  answerContainer.style.display = 'flex'
+  categoryButtons.style.display = 'none'
+  // QUESTION_BANK.splice(idx, 1)
+
+  renderAnswers()
+  endGame()
   QUESTION_BANK.splice(idx, 1)
+  
+
+  console.log(QUESTION_BANK)
+  console.log(allQuestions)
 
   // answerChoices.innerText = `${QUESTION_BANK[idx].answers}`
   //something to display answer choices in box form so i can also edit the box instelf
@@ -410,7 +444,6 @@ function renderChooseQuestion() {
   
 
 }
-
 
 // function renderQuestionChoice(event){
 //     let idx = Math.floor(Math.random() * QUESTION_BANK.history.questions.length)
@@ -449,5 +482,6 @@ function renderChooseQuestion() {
 function render() {
   
   renderChooseCategory()
+  endGame()
   
 }

@@ -89,23 +89,143 @@ const QUESTION_BANK = [
     correctIdx: 1,
     playerIdx: null
   },
+  {
+    category: 'Science',
+    text: 'What is the chemical symbol for gold?',
+    answers: [
+      'Ag',
+      'Au',
+      'Fe',
+      'Hg'
+    ],
+    correctIdx: 1,
+    playerIdx: null
+  },
+  {
+    category: 'Science',
+    text: 'What is the powerhouse of the cell',
+    answers: [
+      'Nuclues',
+      'Ribosome',
+      'Mitochondrion',
+      'Endoplasmic Reticulum'
+    ],
+    correctIdx: 2,
+    playerIdx: null
+  },
+  {
+    category: 'Science',
+    text: 'What is the speed of light in a vacuum?',
+    answers: [
+      '300,000 meters per second',
+      '30,000 meters per second',
+      '300,000 kilometers per second',
+      '30,000 kilometers per second'
+    ],
+    correctIdx: 2,
+    playerIdx: null
+  },
+  {
+    category: 'Science',
+    text: 'Which gas do plants primarily use for photosynthesis?',
+    answers: [
+      'Oxygen',
+      'Nitrogen',
+      'Carbondioxide',
+      'Hydrogen'
+    ],
+    correctIdx: 2,
+    playerIdx: null
+  },
+  {
+    category: 'Science',
+    text: 'Who was the first African American woman to receive a Ph.D. in chemistry in the United States?',
+    answers: [
+      'Mae Jemison',
+      'Marie Maynard Daly',
+      'Dorothy Vaughan',
+      'Katherine Johnson'
+    ],
+    correctIdx: 1,
+    playerIdx: null
+  },
+  {
+    category: 'Science',
+    text: 'Who was the first African American woman to receive a Ph.D. in chemistry in the United States?',
+    answers: [
+      'Mae Jemison',
+      'Marie Maynard Daly',
+      'Dorothy Vaughan',
+      'Katherine Johnson'
+    ],
+    correctIdx: 1,
+    playerIdx: null
+  },
+  {
+    category: 'Science',
+    text: 'Who was the first African American woman to receive a Ph.D. in chemistry in the United States?',
+    answers: [
+      'Mae Jemison',
+      'Marie Maynard Daly',
+      'Dorothy Vaughan',
+      'Katherine Johnson'
+    ],
+    correctIdx: 1,
+    playerIdx: null
+  },
+  {
+    category: 'Science',
+    text: 'Who was the first African American woman to receive a Ph.D. in chemistry in the United States?',
+    answers: [
+      'Mae Jemison',
+      'Marie Maynard Daly',
+      'Dorothy Vaughan',
+      'Katherine Johnson'
+    ],
+    correctIdx: 1,
+    playerIdx: null
+  },
+  {
+    category: 'Science',
+    text: 'Who was the first African American woman to receive a Ph.D. in chemistry in the United States?',
+    answers: [
+      'Mae Jemison',
+      'Marie Maynard Daly',
+      'Dorothy Vaughan',
+      'Katherine Johnson'
+    ],
+    correctIdx: 1,
+    playerIdx: null
+  },
+  {
+    category: 'Science',
+    text: 'Who was the first African American woman to receive a Ph.D. in chemistry in the United States?',
+    answers: [
+      'Mae Jemison',
+      'Marie Maynard Daly',
+      'Dorothy Vaughan',
+      'Katherine Johnson'
+    ],
+    correctIdx: 1,
+    playerIdx: null
+  },
 
 
   
 ];
     
+
    
 
   /*----- state variables -----*/
+  
   let questionChoice 
   let chosenQuestion 
   let correctAnswer
   let score
-
-  let playButton
   let playerAnswer
   let homeMessage = "how much do you know about the world around you?"
-  let homeDisplay = "do you know stuff?"
+  let homeIntro = "do you know stuff?"
  
 
 
@@ -114,12 +234,16 @@ const QUESTION_BANK = [
   let answerContainer = document.getElementById('answers')
   let categoryButtons = document.getElementById('questionscategories')
   let messageDisplay = document.getElementById('message')
+  const allQuestions = QUESTION_BANK.filter((question) => 
+    question.category === category)
+
+  console.log(allQuestions)
 
 
   /*----- event listeners -----*/
-document.getElementById('category').addEventListener('click', renderChooseCategory)
+// document.getElementById('category').addEventListener('click', renderChooseCategory)
+categoryButtons.addEventListener('click', renderChooseQuestion)
 document.getElementById('answers').addEventListener('click', (event) => {
-  renderChooseQuestion(event)
   renderCorrectAnswer(event)
   renderAnswers(event)
 })
@@ -132,7 +256,6 @@ function init() {
   chosenQuestion = null
   questionPicked = null
   score = 0
-  
 
 
 }
@@ -153,6 +276,7 @@ function init() {
 // why when i tried to initialize my page with an empty 'answers' id, does in not show up again?
 //
 // }
+// function for a home screen
 
 
 function renderScore() {
@@ -168,7 +292,7 @@ function renderCorrectAnswer(event) {
 
   playerAnswer = event.target.innerText
   let playerAnswerIdx = Number(playerAnswer)
-  console.log(playerAnswer)
+  console.log(playerAnswer, correctAnswer)
   let message 
   
   if (playerAnswer === correctAnswer){
@@ -178,14 +302,17 @@ function renderCorrectAnswer(event) {
     // why do i have to console log up there to see something?
   
   } else {
-    message = ''
+    message = `The answer was ${correctAnswer} but try the next one!`
     console.log(message)
   }
 
   console.log(message)
   messageDisplay.innerText = message
   setTimeout(() => {
-    messageDisplay.innerText = ""
+    messageDisplay.innerText = `You have ${score} points!`
+    question.innerText = 'Try a new category!'
+    answerContainer.style.display = 'none'
+    categoryButtons.style.display = 'flex'
     // categoryButtons.style.display = answerContainer
 
   }, 5000)
@@ -224,18 +351,44 @@ const answerButtonsArray = answerContainer.children
 
 
 }
+function handleCategoryChoice(event) {
+
+  
+}
 
 function renderChooseCategory() {
-  let idx = Math.floor(Math.random() * QUESTION_BANK.length)
-  question.innerText = QUESTION_BANK[idx].text
-  chosenQuestion = QUESTION_BANK[idx]
-  answerContainer.style.display = 'flex'
-  categoryButtons.style.display = 'none'
-  QUESTION_BANK.splice(idx, 1)
-  renderAnswers()
+  console.log(QUESTION_BANK.category)
+  const allQuestions = QUESTION_BANK.filter((question) => 
+    question.category === category)
+  console.log(question.category)
+  return
+
+    // let idx = Math.floor(Math.random() * QUESTION_BANK.length)
+    // question.innerText = QUESTION_BANK[idx].text
+    // chosenQuestion = QUESTION_BANK[idx]
+  
+    // answerContainer.style.display = 'flex'
+    // categoryButtons.style.display = 'none'
+    // // QUESTION_BANK.splice(idx, 1)
+    // renderAnswers()
+  
+  
+  }
 
 
-}
+// function renderChooseCategory() {
+
+//   let idx = Math.floor(Math.random() * QUESTION_BANK.length)
+//   question.innerText = QUESTION_BANK[idx].text
+//   chosenQuestion = QUESTION_BANK[idx]
+
+//   answerContainer.style.display = 'flex'
+//   categoryButtons.style.display = 'none'
+//   // QUESTION_BANK.splice(idx, 1)
+//   renderAnswers()
+
+
+// }
 
 // have a function that changes the answer container, category buttons and questions div
 // i need to save/ cached the intial values of the home screen. 

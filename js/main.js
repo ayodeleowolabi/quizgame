@@ -246,6 +246,7 @@ function init() {
   document.getElementById(`Math`).style.display = 'flex'
   question.innerText = 'how much do you know about the world around you?'
   messageDisplay.innerText = 'click a category to begin! You get 1 point with each correct answer. If you get 12 points, you win'
+  scoreDisplay.innerHTML = ''
 render()
 };
 

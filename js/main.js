@@ -239,6 +239,7 @@ const QUESTION_BANK = [
   let score
   let playerAnswer
   let category
+  let currentCategory
  
 
 
@@ -273,6 +274,9 @@ function init() {
   score = 0
   allQuestions = QUESTION_BANK.map((question) => question)
   playAgainButton.style.visibility = 'hidden'
+  categoryButtons.style.visibility = 'visible'
+  question.innerText = 'how much do you know about the world around you?'
+  messageDisplay.innerText = 'click a category to begin!'
 
 
 render()
@@ -288,14 +292,14 @@ render()
 
 function endGame() {
 
-  if (allQuestions.length === 0 && score >= 9){
+  if (allQuestions.length === 0 && score >= 12){
     question.innerText = `Congratulations! You have ${score} points! You know more than you think.`
     categoryButtons.style.display = 'none'
     answerContainer.style.display = 'none'
     messageDisplay.innerText = "YOU WON!"
     playAgainButton.style.visibility = 'visible'
-  } else if (allQuestions.length === 0 && score <= 8) {
-    question.innerText = `You only got ${score} points. Try again.`
+  } else if (allQuestions.length === 0 && score <= 11) {
+    question.innerText = `You only got ${score} points out of 16. Try again.`
     categoryButtons.style.display = 'none'
     answerContainer.style.display = 'none'
     messageDisplay.innerText = ""
@@ -319,9 +323,8 @@ function renderCorrectAnswer(event) {
   
   if (playerAnswer === correctAnswer){
     console.log(message)
-    message = "Good job"
+    message = "You earned 1 point."
     score++
-    // why do i have to console log up there to see something?
   
   } else {
     message = `The answer was ${correctAnswer} but try the next one!`
@@ -331,7 +334,7 @@ function renderCorrectAnswer(event) {
   console.log(message)
   messageDisplay.innerText = message
   setTimeout(() => {
-    messageDisplay.innerText = `You have ${score} points!`
+    messageDisplay.innerText = ``
     question.innerText = 'Try a new category!'
     categoryButtons.style.display = 'flex'
     answerContainer.style.display = 'none'
@@ -356,11 +359,9 @@ console.log(score)
 function renderAnswers() {
   
   let answerChoices = chosenQuestion.answers
-  console.log(answerChoices) // how can i access my text 
-  // i think i need to access playerQuestions here
+  console.log(answerChoices) 
 console.log(answerContainer.children)
 const answerButtonsArray = answerContainer.children
-  // after answer is rendered, player questions must be popped out of the playernquestions array
   for (let i = 0; i < answerButtonsArray.length; i++){
     answerButtonsArray[i].innerText = answerChoices[i]
     console.log(answerButtonsArray[i])
@@ -389,19 +390,11 @@ const answerButtonsArray = answerContainer.children
 
 function handleCategoryChoice(event) {
   category = event.target.id
+  messageDisplay.innerText = " "
   renderChooseCategory()
-  // let idx = Math.floor(Math.random() * allQuestions.length)
-  
-  
   renderChooseQuestion()
-  
-  // if (questionChoices === QUESTION_BANK[idx])
- 
-  console.log(category)
-  return
- 
 
-  
+  return
 }
 
 
@@ -411,39 +404,19 @@ function renderChooseCategory() {
 
     categoryBank = allQuestions.filter((question) => 
     question.category === category)
+    currentCategory = categoryBank
     
 
     console.log(QUESTION_BANK)
     console.log(categoryBank)
     console.log(allQuestions)
-  return
-
-    // let idx = Math.floor(Math.random() * QUESTION_BANK.length)
-    // question.innerText = QUESTION_BANK[idx].text
-    // chosenQuestion = QUESTION_BANK[idx]
-  
-    // answerContainer.style.display = 'flex'
-    // categoryButtons.style.display = 'none'
-    // // QUESTION_BANK.splice(idx, 1)
-    // renderAnswers()
-  
+    console.log(currentCategory)
+  return  
   
   }
 
 
-// function renderChooseCategory() {
 
-//   let idx = Math.floor(Math.random() * QUESTION_BANK.length)
-//   question.innerText = QUESTION_BANK[idx].text
-//   chosenQuestion = QUESTION_BANK[idx]
-
-//   answerContainer.style.display = 'flex'
-//   categoryButtons.style.display = 'none'
-//   // QUESTION_BANK.splice(idx, 1)
-//   renderAnswers()
-
-
-// }
 
 // have a function that changes the answer container, category buttons and questions div
 // i need to save/ cached the intial values of the home screen. 
@@ -455,6 +428,9 @@ function renderChooseQuestion() {
     question.innerText = 'You have finished all the questions in the category you selected'
     document.getElementById(`${category}`).style.display = 'none'
     categoryButtons.style.display = 'flex'
+    let currentCategoryArray = categoryButtons.children
+    // Loop througha answer container.children
+    // for each of those do style.display.empty string
     answerContainer.children.style.display = ''
   } else 
   question.innerText = categoryBank[idx].text
@@ -462,64 +438,33 @@ function renderChooseQuestion() {
   console.log(chosenQuestion)
   answerContainer.style.display = 'flex'
   categoryButtons.style.display = 'none'
-  // QUESTION_BANK.splice(idx, 1)
+
+  console.log(categoryButtons.children)
+
  
 
   renderAnswers()
 
  allQuestions = allQuestions.filter((question) => question !== chosenQuestion)
-
-
-
-
-  
-//  QUESTION_BANK.splice(idx, 1)
-  
-  
-
-  
-
-  // answerChoices.innerText = `${QUESTION_BANK[idx].answers}`
-  //something to display answer choices in box form so i can also edit the box instelf
-  
+ currentCategory = currentCategory.filter((question) => question === categoryBank)
+//  if (currentCategory.length === 0){
+//   document.getElementById(`${currentCategory}`.style.visibility = 'hidden')
+//  } else
+ // currentCategory filter through all questions for question that are = to current category
+ //if length of current category is 0, grab the history id and set its display or visbility to hidden
+//Declare a current category variable in state
+//when your creating category bank, set current catergory to = category of questions
 
   return
-  // playerQuestions.pop(QUESTION_BANK[idx]) is this where this function should be?
+
   
 
 }
 
-// function renderQuestionChoice(event){
-//     let idx = Math.floor(Math.random() * QUESTION_BANK.history.questions.length)
 
 
-//     let questionPicked = QUESTION_BANK.history.questions[idx]
-//     let questionAnswers = QUESTION_BANK.history.choices[questionPicked.idx]
-//     question.innerText = questionPicked
-//     console.log(questionAnswers)
-//     return questionChoice 
-// }
-
-// function renderQuestionChoice(event){
-//   QUESTION_BANK.forEach((question) => {
-//     let idx = Math.floor(Math.random() * QUESTION_BANK.history.questions.length)
-
-//   })
-//     let questionPicked = QUESTION_BANK.history.questions[idx]
-//     let questionAnswers = QUESTION_BANK.history.choices[idx]
-//     question.innerText = questionPicked
-//     console.log(idx)
-//     return questionChoice 
-// }
- 
 
 
-  // let questionAnswers = QUESTION_BANK.history.choices[idx]
-  // console.log(questionAnswers, questionPicked)
-  // question.innerText = questionPicked
-  // answerButtons.innerText = q
-  // return questionChoiceX
-  // // correctAnswer()
 
 
 

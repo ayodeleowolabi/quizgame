@@ -238,8 +238,6 @@ const QUESTION_BANK = [
   let correctAnswer
   let score
   let playerAnswer
-  let homeMessage = "how much do you know about the world around you?"
-  let homeIntro = "do you know stuff?"
   let category
  
 
@@ -249,6 +247,7 @@ const QUESTION_BANK = [
   let answerContainer = document.getElementById('answers')
   let categoryButtons = document.getElementById('questionscategories')
   let messageDisplay = document.getElementById('message')
+  let playAgainButton = document.getElementById('playagain')
   
 
  
@@ -261,6 +260,7 @@ document.getElementById('answers').addEventListener('click', (event) => {
   renderCorrectAnswer(event)
   renderAnswers(event)
 })
+playAgainButton.addEventListener('click', init)
 // use id here
 
 
@@ -271,6 +271,8 @@ function init() {
   questionPicked = null
   score = 0
   allQuestions = QUESTION_BANK.map((question) => question)
+  playAgainButton.style.visibility = 'hidden'
+
 
 render()
 
@@ -282,19 +284,29 @@ render()
 
 
 
+
 function endGame() {
-  if (allQuestions === 0 && score >= 9){
+
+  if (allQuestions.length === 0 && score >= 9){
     question.innerText = `Congratulations! You have ${score} points! You know more than you think.`
     categoryButtons.style.display = 'none'
-
-  } else if (allQuestions === 0 && score <= 8)
-  question.innerText = `You only got ${score} points. Try again.`
+    answerContainer.style.display = 'none'
+    messageDisplay.innerText = "YOU WON!"
+    playAgainButton.style.visibility = 'visible'
+  } else if (allQuestions.length === 0 && score <= 8) {
+    question.innerText = `You only got ${score} points. Try again.`
+    categoryButtons.style.display = 'none'
+    answerContainer.style.display = 'none'
+    messageDisplay.innerText = ""
+     playAgainButton.style.visibility = 'visible'
+  }  
 
 
   return
 }
 
 function renderCorrectAnswer(event) {
+  
   correctAnswerIdx = chosenQuestion.correctIdx
   correctAnswer = chosenQuestion.answers[correctAnswerIdx]
   console.log(correctAnswer)
@@ -322,9 +334,12 @@ function renderCorrectAnswer(event) {
     question.innerText = 'Try a new category!'
     categoryButtons.style.display = 'flex'
     answerContainer.style.display = 'none'
+    endGame()
   
 
-  }, 5000)
+  }, 2000)
+
+  
   
 
   
@@ -370,12 +385,7 @@ const answerButtonsArray = answerContainer.children
 
 
 
-console.log(QUESTION_BANK.length)
 function handleCategoryChoice(event) {
-  console.log(QUESTION_BANK.length)
-  if (allQuestions.length === 0){
-    endGame()
-  } else
   category = event.target.id
   renderChooseCategory()
   // let idx = Math.floor(Math.random() * allQuestions.length)
@@ -399,6 +409,7 @@ function renderChooseCategory() {
 
     categoryBank = allQuestions.filter((question) => 
     question.category === category)
+    
 
     console.log(QUESTION_BANK)
     console.log(categoryBank)
@@ -440,6 +451,7 @@ function renderChooseQuestion() {
   let idx = Math.floor(Math.random() * categoryBank.length)
   if (categoryBank.length === 0){
     question.innerText = 'You have finished all the questions in the category you selected'
+    document.getElementById(`${category}`).style.display = 'none'
     categoryButtons.style.display = 'flex'
     answerContainer.children.style.display = ''
   } else 
@@ -512,6 +524,6 @@ function renderChooseQuestion() {
 function render() {
   
   renderChooseCategory()
-  endGame ()
+ 
   
 }

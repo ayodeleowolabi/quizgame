@@ -11,6 +11,16 @@ body{
     font-style: normal;
     color: rgb(100,100,100);
 }
+h1{
+    font-weight: 900;
+}
+h2{
+    font-size: 100%;
+    color: black;
+    font-weight: 400;
+    font-style: oblique;
+    align-items: center;
+}
 
 
 #questions{
@@ -20,11 +30,29 @@ body{
 #questionscategories{
     display:flex;
     flex-direction: column;
+   
+}
+.categorybutton{
+    background-color: black;
+    color: azure;
+    padding: 1rem;
+    justify-content: space-between;
+    margin: 1rem;
 }
 
-#answers{
+#answers{ 
     display: none;
     flex-direction: column;
+
+}
+.multiplechoice{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: black;
+    color: azure;
+    height: 2rem;
+    margin: 1em;
 }
 
 #message{

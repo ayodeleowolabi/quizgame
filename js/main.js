@@ -241,7 +241,9 @@ function init() {
   allQuestions = QUESTION_BANK.map((question) => question)
   playAgainButton.style.visibility = 'hidden'
   categoryButtons.style.display = 'flex'
-  categoryButtons.style.visibility = 'visible'
+  document.getElementById(`History`).style.display = 'flex'
+  document.getElementById(`Science`).style.display = 'flex'
+  document.getElementById(`Math`).style.display = 'flex'
   question.innerText = 'how much do you know about the world around you?'
   messageDisplay.innerText = 'click a category to begin! You get 1 point with each correct answer. If you get 12 points, you win'
 render()

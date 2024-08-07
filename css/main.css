@@ -22,6 +22,11 @@ h2{
     align-items: center;
 }
 
+#score{
+    background-color: rgb(200, 100, 100);
+    width: 4em;
+}
+
 
 #questions{
     display: flex;

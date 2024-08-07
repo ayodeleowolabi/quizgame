@@ -248,6 +248,7 @@ const QUESTION_BANK = [
   let categoryButtons = document.getElementById('questionscategories')
   let messageDisplay = document.getElementById('message')
   let playAgainButton = document.getElementById('playagain')
+  let scoreDisplay = document.getElementById('score')
   
 
  
@@ -334,6 +335,7 @@ function renderCorrectAnswer(event) {
     question.innerText = 'Try a new category!'
     categoryButtons.style.display = 'flex'
     answerContainer.style.display = 'none'
+    scoreDisplay.innerText = score
     endGame()
   
 

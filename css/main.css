@@ -17,6 +17,10 @@ body{
     display: flex;
     padding: 20px
 }
+#questionscategories{
+    display:flex;
+    flex-direction: column;
+}
 
 #answers{
     display: none;

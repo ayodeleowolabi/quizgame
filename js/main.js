@@ -28,7 +28,7 @@
 
  }
  
-let QUESTION_BANK = [
+const QUESTION_BANK = [
   {
     category: 'History',
     text: 'Who was president in 1996?',
@@ -231,8 +231,10 @@ let QUESTION_BANK = [
 
   /*----- state variables -----*/
   let allQuestions
+  let categoryBank
   let questionChoices 
   let chosenQuestion 
+  let allQuestionsAnswered
   let correctAnswer
   let score
   let playerAnswer
@@ -268,8 +270,10 @@ function init() {
   chosenQuestion = null
   questionPicked = null
   score = 0
+  allQuestions = QUESTION_BANK.map((question) => question)
 
 render()
+
 
 }
 
@@ -279,8 +283,12 @@ render()
 
 
 function endGame() {
-  allQuestions.length = 0
-  message =  `Congratulations! You got ${score} points!`
+  if (allQuestions === 0 && score >= 9){
+    question.innerText = `Congratulations! You have ${score} points! You know more than you think.`
+    categoryButtons.style.display = 'none'
+
+  } else if (allQuestions === 0 && score <= 8)
+  question.innerText = `You only got ${score} points. Try again.`
 
 
   return
@@ -312,11 +320,16 @@ function renderCorrectAnswer(event) {
   setTimeout(() => {
     messageDisplay.innerText = `You have ${score} points!`
     question.innerText = 'Try a new category!'
-    answerContainer.style.display = 'none'
     categoryButtons.style.display = 'flex'
-    // categoryButtons.style.display = answerContainer
+    answerContainer.style.display = 'none'
+  
 
   }, 5000)
+  
+
+  
+
+   
 
   return 
 
@@ -357,11 +370,16 @@ const answerButtonsArray = answerContainer.children
 
 
 
-
+console.log(QUESTION_BANK.length)
 function handleCategoryChoice(event) {
+  console.log(QUESTION_BANK.length)
+  if (allQuestions.length === 0){
+    endGame()
+  } else
   category = event.target.id
   renderChooseCategory()
-  let idx = Math.floor(Math.random() * allQuestions.length)
+  // let idx = Math.floor(Math.random() * allQuestions.length)
+  
   
   renderChooseQuestion()
   
@@ -378,13 +396,13 @@ function handleCategoryChoice(event) {
 
 function renderChooseCategory() {
   console.log(category)
-  allQuestions = QUESTION_BANK.filter((question) => 
-    question.category === category)
-  console.log(allQuestions)
-  if (allQuestions.length === undefined){
-    message = 'You have finished all the questions in this category'
-  } else 
 
+    categoryBank = allQuestions.filter((question) => 
+    question.category === category)
+
+    console.log(QUESTION_BANK)
+    console.log(categoryBank)
+    console.log(allQuestions)
   return
 
     // let idx = Math.floor(Math.random() * QUESTION_BANK.length)
@@ -419,21 +437,33 @@ function renderChooseCategory() {
 
 function renderChooseQuestion() {
   
-  let idx = Math.floor(Math.random() * allQuestions.length)
-  question.innerText = allQuestions[idx].text
-  chosenQuestion = allQuestions[idx]
+  let idx = Math.floor(Math.random() * categoryBank.length)
+  if (categoryBank.length === 0){
+    question.innerText = 'You have finished all the questions in the category you selected'
+    categoryButtons.style.display = 'flex'
+    answerContainer.children.style.display = ''
+  } else 
+  question.innerText = categoryBank[idx].text
+  chosenQuestion = categoryBank[idx]
   console.log(chosenQuestion)
   answerContainer.style.display = 'flex'
   categoryButtons.style.display = 'none'
   // QUESTION_BANK.splice(idx, 1)
+ 
 
   renderAnswers()
-  endGame()
-  QUESTION_BANK.splice(idx, 1)
+
+ allQuestions = allQuestions.filter((question) => question !== chosenQuestion)
+
+
+
+
+  
+//  QUESTION_BANK.splice(idx, 1)
+  
   
 
-  console.log(QUESTION_BANK)
-  console.log(allQuestions)
+  
 
   // answerChoices.innerText = `${QUESTION_BANK[idx].answers}`
   //something to display answer choices in box form so i can also edit the box instelf
@@ -482,6 +512,6 @@ function renderChooseQuestion() {
 function render() {
   
   renderChooseCategory()
-  endGame()
+  endGame ()
   
 }

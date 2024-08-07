@@ -3,6 +3,14 @@ Welcome to my first project as a software developer. As a former teacher, its on
 
 I developed this game as my first project in General Assembly's Sotware engineering bootcamp using **HTML, CSS** and **Javascript**. I enjoyed getting to understand more about game logic, javascript functions and scope flow. 
 
+## Technologies Used
+* CSS
+* Javascript
+* HTML
+* Canva
+* GITHUB
+* CHATGPT
+
 ## Project Planning
 > As I was planning my app I used Canva to design my wireframe. You can see visuals of my process [here](https://www.canva.com/design/DAGMtX_pUmo/5qssgPZYvx8x1WKMbFvqhQ/view?utm_content=DAGMtX_pUmo&utm_campaign=designshare&utm_medium=link&utm_source=editor)
 

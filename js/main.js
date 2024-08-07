@@ -1,33 +1,4 @@
-  /*----- constants -----*/
- const QUESTION_BANKtemp = {
-  history: {questions: ['who was the first president of the united states?', 
-                        'which ancient civilization built the pyramids?', 
-                        'what year did WWII end?',
-                        'who wrote the declartion of independence'], 
-            choices: {
-                        1: ['A: Thomas Jefferson', 'B: John Adams', 'C: George Washington', 'D: James Madison'],
-                        2: ['A: Mesopotamian', 'B: Greek', 'C: Roman', 'D: Egyptian'],
-                        3: ['A: 1942', 'B: 1944', 'C: 1945', 'D: 1946'],
-                        4: ['A: Benjamin Franklin', 'B: Thomas Jefferson', 'C: John Hancock', 'D: James Monroe']
-                      
-
-            },
-          answers: {
-                        1: 'C: George Washington',
-                        2: 'D: Egyptian',
-                        3: 'C: 1945',
-                        4:'B: Thomas Jefferson'
-
-          }},
-
-
-          // is the choice received question_bank.choices[idx of choice (event.target.id)] === questionbank.answer[idx of question]
-                
-  math:{},
-  science:{}
-
- }
- 
+  /*----- constants -----*/ 
 const QUESTION_BANK = [
   {
     category: 'History',
@@ -227,14 +198,11 @@ const QUESTION_BANK = [
 ];
     
 
-   
-
   /*----- state variables -----*/
   let allQuestions
   let categoryBank
   let questionChoices 
   let chosenQuestion 
-  let allQuestionsAnswered
   let correctAnswer
   let score
   let playerAnswer
@@ -256,14 +224,12 @@ const QUESTION_BANK = [
 
 
   /*----- event listeners -----*/
-// document.getElementById('category').addEventListener('click', renderChooseCategory)
 categoryButtons.addEventListener('click', handleCategoryChoice)
 document.getElementById('answers').addEventListener('click', (event) => {
   renderCorrectAnswer(event)
   renderAnswers(event)
 })
 playAgainButton.addEventListener('click', init)
-// use id here
 
 
   /*----- functions -----*/
@@ -274,24 +240,17 @@ function init() {
   score = 0
   allQuestions = QUESTION_BANK.map((question) => question)
   playAgainButton.style.visibility = 'hidden'
+  categoryButtons.style.display = 'flex'
   categoryButtons.style.visibility = 'visible'
   question.innerText = 'how much do you know about the world around you?'
-  messageDisplay.innerText = 'click a category to begin!'
-
-
+  messageDisplay.innerText = 'click a category to begin! You get 1 point with each correct answer. If you get 12 points, you win'
 render()
-
-
-}
-
-
-
+};
 
 
 
 
 function endGame() {
-
   if (allQuestions.length === 0 && score >= 12){
     question.innerText = `Congratulations! You have ${score} points! You know more than you think.`
     categoryButtons.style.display = 'none'
@@ -305,33 +264,24 @@ function endGame() {
     messageDisplay.innerText = ""
      playAgainButton.style.visibility = 'visible'
   }  
-
-
   return
-}
+};
 
 function renderCorrectAnswer(event) {
   
   correctAnswerIdx = chosenQuestion.correctIdx
   correctAnswer = chosenQuestion.answers[correctAnswerIdx]
-  console.log(correctAnswer)
-
   playerAnswer = event.target.innerText
   let playerAnswerIdx = Number(playerAnswer)
-  console.log(playerAnswer, correctAnswer)
   let message 
-  
   if (playerAnswer === correctAnswer){
-    console.log(message)
+    
     message = "You earned 1 point."
     score++
-  
   } else {
     message = `The answer was ${correctAnswer} but try the next one!`
-    console.log(message)
   }
-
-  console.log(message)
+  
   messageDisplay.innerText = message
   setTimeout(() => {
     messageDisplay.innerText = ``
@@ -343,48 +293,19 @@ function renderCorrectAnswer(event) {
   
 
   }, 2000)
-
-  
-  
-
-  
-
-   
-
   return 
 
-}
-console.log(score)
+};
 
 function renderAnswers() {
   
   let answerChoices = chosenQuestion.answers
-  console.log(answerChoices) 
-console.log(answerContainer.children)
-const answerButtonsArray = answerContainer.children
+  const answerButtonsArray = answerContainer.children
   for (let i = 0; i < answerButtonsArray.length; i++){
     answerButtonsArray[i].innerText = answerChoices[i]
-    console.log(answerButtonsArray[i])
   }
-
-
-  // renderCorrectAnswer()
   correctAnswer = chosenQuestion.correctIdx
-
-  console.log(correctAnswer)
-  // for (key of answerChoices.children) {
-  //   const multipleChoice = document.getElementById(`${key}--answers`)
-  //   console.log(multipleChoice)
-  //   return
-  // }
-  //if QUESTION_BANK.player[idx] is === to QUESTION_BANK.correctAnswer[idx]
-  //score++ else return 
-
-
-
-}
-
-
+};
 
 
 
@@ -395,75 +316,42 @@ function handleCategoryChoice(event) {
   renderChooseQuestion()
 
   return
-}
+};
 
 
 
 function renderChooseCategory() {
-  console.log(category)
 
     categoryBank = allQuestions.filter((question) => 
     question.category === category)
-    currentCategory = categoryBank
-    
-
-    console.log(QUESTION_BANK)
-    console.log(categoryBank)
-    console.log(allQuestions)
-    console.log(currentCategory)
+    currentCategory = category
   return  
   
-  }
+  };
 
 
-
-
-// have a function that changes the answer container, category buttons and questions div
-// i need to save/ cached the intial values of the home screen. 
 
 function renderChooseQuestion() {
   
   let idx = Math.floor(Math.random() * categoryBank.length)
-  if (categoryBank.length === 0){
-    question.innerText = 'You have finished all the questions in the category you selected'
-    document.getElementById(`${category}`).style.display = 'none'
-    categoryButtons.style.display = 'flex'
-    let currentCategoryArray = categoryButtons.children
-    // Loop througha answer container.children
-    // for each of those do style.display.empty string
-    answerContainer.children.style.display = ''
-  } else 
+  let currentCategoryArray = categoryButtons.children
   question.innerText = categoryBank[idx].text
   chosenQuestion = categoryBank[idx]
-  console.log(chosenQuestion)
   answerContainer.style.display = 'flex'
   categoryButtons.style.display = 'none'
 
-  console.log(categoryButtons.children)
 
- 
 
   renderAnswers()
 
  allQuestions = allQuestions.filter((question) => question !== chosenQuestion)
- currentCategory = currentCategory.filter((question) => question === categoryBank)
-//  if (currentCategory.length === 0){
-//   document.getElementById(`${currentCategory}`.style.visibility = 'hidden')
-//  } else
- // currentCategory filter through all questions for question that are = to current category
- //if length of current category is 0, grab the history id and set its display or visbility to hidden
-//Declare a current category variable in state
-//when your creating category bank, set current catergory to = category of questions
-
+ const currentCategoryQuestions = allQuestions.filter((question) => question.category === currentCategory)
+ if (currentCategoryQuestions.length === 0){
+  document.getElementById(`${currentCategory}`).style.display = 'none'
+ }
   return
 
-  
-
-}
-
-
-
-
+};
 
 
 
@@ -473,4 +361,4 @@ function render() {
   renderChooseCategory()
  
   
-}
+};

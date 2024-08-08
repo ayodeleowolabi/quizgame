@@ -192,9 +192,6 @@ const QUESTION_BANK = [
     correctIdx: 2,
     playerIdx: null
   },
-
-
-  
 ];
     
 
@@ -236,7 +233,6 @@ playAgainButton.addEventListener('click', init)
 init()
 function init() {
   chosenQuestion = null
-  questionPicked = null
   score = 0
   allQuestions = QUESTION_BANK.map((question) => question)
   playAgainButton.style.visibility = 'hidden'
@@ -353,7 +349,6 @@ function renderChooseQuestion() {
   document.getElementById(`${currentCategory}`).style.display = 'none'
  }
   return
-
 };
 
 

@@ -1,4 +1,5 @@
 # Do you know stuff?
+[![Playwright Tests](https://github.com/ayodeleowolabi/quizgame/actions/workflows/playwright.yml/badge.svg)](https://github.com/ayodeleowolabi/quizgame/actions/workflows/playwright.yml)
 Welcome to my first project as a software developer. As a former teacher, its only proper that this first project is a Quiz Game! This Quiz Game called **Do you know stuff** where we test you on simple facts in ***Math, Science*** and ***History***.
 
 I developed this game as my first project in General Assembly's Sotware engineering bootcamp using **HTML, CSS** and **Javascript**. I enjoyed getting to understand more about game logic, javascript functions and scope flow. 

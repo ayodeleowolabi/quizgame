@@ -360,3 +360,10 @@ function render() {
  
   
 };
+
+// Expose read-only state for Playwright E2E tests. Does not affect gameplay.
+window.__quizGameTestHooks = {
+  get chosenQuestion() { return chosenQuestion; },
+  get allQuestions() { return allQuestions; },
+  get score() { return score; },
+};

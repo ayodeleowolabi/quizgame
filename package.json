@@ -1,0 +1,26 @@
+{
+  "name": "quizgame",
+  "version": "1.0.0",
+  "description": "Welcome to my first project as a software developer. As a former teacher, its only proper that this first project is a Quiz Game! This Quiz Game called **Do you know stuff** where we test you on simple facts in ***Math, Science*** and ***History***.",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ayodeleowolabi/quizgame.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ayodeleowolabi/quizgame/issues"
+  },
+  "homepage": "https://github.com/ayodeleowolabi/quizgame#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "http-server": "^14.1.1"
+  }
+}
